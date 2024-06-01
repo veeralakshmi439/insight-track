@@ -2,6 +2,7 @@
   "name": "visulizer",
   "private": true,
   "scripts": {
+    "start": "npm-start-all",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -19,6 +20,7 @@
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "rest-apis/*"
   ]
 }
