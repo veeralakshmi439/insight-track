@@ -1,4 +1,5 @@
 import { Box, Button, Container, Flex } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const NavTop = () => {
   return (
@@ -10,10 +11,18 @@ export const NavTop = () => {
     >
       <Container maxW={"1000px"}>
         <Flex>
-          <Button variant={'ghost'}>Health</Button>
-          <Button variant={'ghost'}>Customer Experence </Button>
-          <Button variant={'ghost'}>Analytics</Button>
-          <Button variant={'ghost'}>Delevery</Button>
+          <Link to={"/health"}>
+            <Button variant={"ghost"}>Health</Button>
+          </Link>
+          <Link to={"/customer-experence"}>
+            <Button variant={"ghost"}>Customer Experence </Button>
+          </Link>
+          <Link to={"/analytics"}>
+            <Button variant={"ghost"}>Analytics</Button>
+          </Link>
+          <Link to={"/delivery"}>
+            <Button variant={"ghost"}>Delivery</Button>
+          </Link>
         </Flex>
       </Container>
     </Box>

@@ -1,99 +1,91 @@
-const fs = require('fs');
 const db = require('../db');
 
-const staticHar = {
-  log: {
-    version: "1.2",
-    creator: { name: "WebInspector", version: "537.36" },
-    pages: [],
-    entries: []
-  }
-};
+// Flow names as shown in the screenshot
+const flowNames = [
+  'Beautypie Product Navigation',
+  'Liddle Home',
+  'Supredrug Home',
+  'Boots Home',
+  'Cineworld Home',
+  'Tesco Store Home',
+  'ASDA Groceries Home',
+];
 
-const staticPerformance = {
-  first_contentful_paint: 1.5,
-  largest_contentful_paint: 2.5,
-  cumulative_layout_shift: 0.1,
-  total_blocking_time: 200
-};
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+function getRandomStatus() {
+  const statuses = ['up','up','up','up','up','up','up','up','up','up','up','up','up','up','up','up','up','up', 'down', 'partially up'];
+  return statuses[Math.floor(Math.random() * statuses.length)];
 }
 
-function getRandomTimestamp() {
-  const start = new Date(2023, 0, 1);
-  const end = new Date();
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
+// Calculate the total number of records
+const minutesIn90Days = 60;
+const totalScans = flowNames.length * minutesIn90Days;
 
-function getRandomUri() {
-  const uris = [
-    'http://example.com/start',
-    'http://example.org/start',
-    'http://test.com/start',
-    'http://demo.com/start'
-  ];
-  return uris[Math.floor(Math.random() * uris.length)];
-}
-
-function getRandomSequenceNumber() {
-  return getRandomInt(1, 100);
-}
-
-function getRandomScanId() {
-  return getRandomInt(1, 10);
-}
-
-async function insertRandomRecord() {
+async function insertData() {
   const client = await db.getClient();
-
   try {
     await client.query('BEGIN');
 
-    const screenshotPath = './screenshot.png'; // Adjust the path to an actual file path
-    const screenshot = fs.readFileSync(screenshotPath);
+    // Insert dummy screenshots
+    const screenshotIds = [];
+    for (let i = 0; i < 10; i++) {
+      const res = await client.query(
+        'INSERT INTO Screenshots (blob_storage) VALUES ($1) RETURNING id',
+        [Buffer.from(`Screenshot data ${i}`, 'utf-8')]
+      );
+      screenshotIds.push(res.rows[0].id);
+    }
 
-    const insertScreenshotQuery = `
-      INSERT INTO Screenshots (blob_storage)
-      VALUES ($1)
-      RETURNING id
-    `;
-    const resScreenshot = await client.query(insertScreenshotQuery, [screenshot]);
-    const screenshotId = resScreenshot.rows[0].id;
+    // Insert dummy ChromePerformance records
+    const now = new Date();
+    let scanId = 1;
+    for (const flowName of flowNames) {
+      for (let i = 0; i < minutesIn90Days; i++) {
+        const timestamp = new Date(now.getTime() - i * 60 * 1000);
+        const screenshotId = screenshotIds[i % screenshotIds.length];
+        const traceJson = {};
+        const harFile = {};
+        const firstContentfulPaint = (Math.random() * (3.0 - 0.5) + 0.5).toFixed(2);
+        const largestContentfulPaint = (Math.random() * (4.0 - 1.0) + 1.0).toFixed(2);
+        const cumulativeLayoutShift = (Math.random() * (0.25 - 0.0) + 0.0).toFixed(2);
+        const totalBlockingTime = Math.floor(Math.random() * 500);
+        const status = getRandomStatus();
 
-    const insertPerformanceQuery = `
-      INSERT INTO ChromePerformance (
-        scan_id, sequence_number, timestamp, start_uri, end_uri,
-        trace_json, har_file, first_contentful_paint, largest_contentful_paint,
-        cumulative_layout_shift, total_blocking_time, screenshot_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-    `;
-
-    const values = [
-      getRandomScanId(), // scanId
-      getRandomSequenceNumber(), // sequenceNumber
-      getRandomTimestamp(), // timestamp
-      getRandomUri(), // startUri
-      getRandomUri(), // endUri
-      staticHar, // traceJson
-      staticHar, // harFile
-      staticPerformance.first_contentful_paint, // fcp
-      staticPerformance.largest_contentful_paint, // lcp
-      staticPerformance.cumulative_layout_shift, // cls
-      staticPerformance.total_blocking_time, // tbt
-      screenshotId // screenshotId
-    ];
-
-    await client.query(insertPerformanceQuery, values);
+        await client.query(
+          `INSERT INTO ChromePerformance (
+            scan_id, sequence_number, timestamp, start_uri, end_uri, trace_json, har_file, 
+            first_contentful_paint, largest_contentful_paint, cumulative_layout_shift, 
+            total_blocking_time, screenshot_id, flow_name,status
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,$14)`,
+          [
+            scanId,
+            i,
+            timestamp,
+            `http://example.com/start/${scanId}`,
+            `http://example.com/end/${scanId}`,
+            traceJson,
+            harFile,
+            firstContentfulPaint,
+            largestContentfulPaint,
+            cumulativeLayoutShift,
+            totalBlockingTime,
+            screenshotId,
+            flowName,
+            status
+          ]
+        );
+        console.log(scanId);
+        scanId++;
+      }
+    }
 
     await client.query('COMMIT');
+    console.log(`Inserted ${totalScans} records.`);
   } catch (e) {
     await client.query('ROLLBACK');
-    throw e;
+    console.error('Error inserting data:', e);
   } finally {
     client.release();
   }
 }
 
-module.exports = insertRandomRecord;
+module.exports = insertData;
