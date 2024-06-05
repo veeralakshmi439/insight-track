@@ -19,8 +19,9 @@
   },
   "packageManager": "yarn@1.22.19",
   "workspaces": [
+    "components",
     "apps/*",
     "packages/*",
-    "rest-apis/*"
+    "services/*"
   ]
 }
