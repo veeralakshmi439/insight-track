@@ -27,6 +27,7 @@ import {
   Progress,
   Image,
 } from "@chakra-ui/react";
+import NetworkWaterfall from "../charts/network-har";
 
 const metrics = [
   {
@@ -58,7 +59,7 @@ const metrics = [
 const screenshotUrl =
   "https://lh7-us.googleusercontent.com/Gckzlm3-qfXUZ9zOI1hylS6bt3XqT6vcg5omAK1G5gZEs-yH4NjFtA1I7bfUo3LPs7wSmbZ3bYRedSuG-t93-qCOipGr_XP39e7yiABLcQAKfKojzzC3Qub7LElghW194AMUDFwQ4oRrqqjF5DgFInM"; // Replace with your actual screenshot URL
 
-export const DrawerRight = () => {
+export const DrawerRight = ({ scanId }: { scanId: string }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const drawerState: any = useContext(NavigationStateContext);
   const drawerDispatch: any = useContext(NavigationDispatcherContext);
@@ -88,7 +89,7 @@ export const DrawerRight = () => {
         <DrawerContent>
           <DrawerCloseButton />
 
-          <Tabs isFitted variant="enclosed">
+          <Tabs isFitted variant="enclosed" isLazy>
             <TabList mb="1em">
               <Tab>Overview</Tab>
               <Tab>Network Waterfall</Tab>
@@ -103,7 +104,7 @@ export const DrawerRight = () => {
                 />
               </TabPanel>
               <TabPanel>
-                <NetworkWaterfall />
+                <NetworkWaterfall scanId={scanId} />
               </TabPanel>
               <TabPanel>
                 <MultipleScreenshots screenshots={[]} />
@@ -227,12 +228,6 @@ const MultipleScreenshots = ({ screenshots = [] }) => (
       />
     ))}
   </Flex>
-);
-
-const NetworkWaterfall = () => (
-  <Box p={4}>
-    <Text>Network Waterfall content goes here</Text>
-  </Box>
 );
 
 const PerformanceTrace = () => (

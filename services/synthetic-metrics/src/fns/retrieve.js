@@ -6,14 +6,14 @@ async function retrieveRecords(fromTimestamp, toTimestamp, flow_name) {
 
   try {
     const queryWithOutFlowNameFilter = `
-      SELECT *
+      SELECT id,scan_id,sequence_number,timestamp,start_uri,end_uri,screenshot_id,flow_name,status
       FROM ChromePerformance
       WHERE (timestamp BETWEEN $1 AND $2)
       ORDER BY timestamp ASC
     `;
 
     const queryWithFlowNameFilter = `
-    SELECT *
+    SELECT id,scan_id,sequence_number,timestamp,start_uri,end_uri,screenshot_id,flow_name,status
     FROM ChromePerformance
     WHERE (timestamp BETWEEN $1 AND $2) AND flow_name = $3
     ORDER BY timestamp ASC

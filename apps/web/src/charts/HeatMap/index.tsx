@@ -1,11 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useContext, useEffect, useRef } from "react";
-import useSWR from "swr";
 import * as echarts from "echarts";
 import { Box } from "@chakra-ui/react";
 import { NavigationDispatcherContext } from "../../NavigationContext";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { useHTTP } from "../../uitls/useHTTP";
 
 const HeatmapChart = ({ from, to }) => {
   const ref = useRef(null);
@@ -14,19 +12,20 @@ const HeatmapChart = ({ from, to }) => {
 
   const dispatchDrawerState = useContext(NavigationDispatcherContext);
 
-  const { data, error } = useSWR(
-    `http://localhost:3000/health?from=${from}`,
-    fetcher
-  );
+  const { data, error } = useHTTP(`/health?from=${from}`);
 
   useEffect(() => {
     if (ref.current && data) {
       const chartDom = ref.current;
-      const myChart = echarts.init(chartDom);
+      const chartInstance = echarts.init(chartDom);
 
       // Extract unique timestamps and format as needed
       const uniqueTimestamps = [
         ...new Set(data.map((item) => new Date(item.timestamp).toISOString())),
+      ];
+
+      const uniqueIds = [
+        ...new Set(data.map((item) => item.id)),
       ];
 
       const days = [...new Set(data.map((item) => item.flow_name))];
@@ -118,12 +117,15 @@ const HeatmapChart = ({ from, to }) => {
         ],
       };
 
-      myChart.setOption(option);
+      chartInstance.setOption(option);
 
-      myChart.on("click", "series", () => {
+      chartInstance.on("click", "series", () => {
         dispatchDrawerState({
           type: "navigation",
           payload: {
+            data: {
+
+            },
             isOpen: true,
           },
         });
@@ -131,7 +133,7 @@ const HeatmapChart = ({ from, to }) => {
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
       resizer = () => {
-        myChart.resize();
+        chartInstance.resize();
       };
 
       window.addEventListener("resize", resizer);
