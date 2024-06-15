@@ -1,5 +1,5 @@
 const db = require('../db');
-
+const uuid=require('uuid');
 // Flow names as shown in the screenshot
 const flowNames = [
   'Beautypie Product Navigation',
@@ -37,9 +37,10 @@ async function insertData() {
 
     // Insert dummy ChromePerformance records
     const now = new Date();
-    let scanId = 1;
+    
     for (const flowName of flowNames) {
       for (let i = 0; i < minutesIn90Days; i++) {
+        let scanId = uuid.v4();
         const timestamp = new Date(now.getTime() - i * 60 * 1000);
         const screenshotId = screenshotIds[i % screenshotIds.length];
         const traceJson = {};
@@ -51,7 +52,7 @@ async function insertData() {
         const status = getRandomStatus();
 
         await client.query(
-          `INSERT INTO ChromePerformance (
+          `INSERT INTO SYNTHETIC_FLOWS (
             scan_id, sequence_number, timestamp, start_uri, end_uri, trace_json, har_file, 
             first_contentful_paint, largest_contentful_paint, cumulative_layout_shift, 
             total_blocking_time, screenshot_id, flow_name,status
@@ -74,7 +75,6 @@ async function insertData() {
           ]
         );
         console.log(scanId);
-        scanId++;
       }
     }
 
