@@ -18,9 +18,6 @@ const AuthProvider = ({ children }) => {
       authorizationParams={{
         redirect_uri: window.location.origin
       }}    >
-      {children}
-      }}
-    >
       <AuthSessionHandler>{children}</AuthSessionHandler>
     </Auth0Provider>
   );
