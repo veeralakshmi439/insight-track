@@ -16,7 +16,9 @@ const AuthProvider = ({ children }) => {
       clientId={authConfig.clientId}
       onRedirectCallback={onRedirectCallback}
       authorizationParams={{
-        redirect_uri: window.location.origin,
+        redirect_uri: window.location.origin
+      }}    >
+      {children}
       }}
     >
       <AuthSessionHandler>{children}</AuthSessionHandler>
