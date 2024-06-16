@@ -1,14 +1,20 @@
 // insertRecord.js
 const fs = require('fs');
-const db = require('./db');
+const db = require('../db');
 
-async function insertRecord(scanId, sequenceNumber, timestamp, startUri, endUri, traceJson, harFile, fcp, lcp, cls, tbt, screenshotPath) {
+async function insertRecord(healthreceive) {
+  const {scan_id, sequence_number, timestamp, start_uri, end_uri, trace_json, har_file, first_contentful_paint, largest_contentful_paint, cumulative_layout_shift, total_blocking_time, screenshotPath,flow_name}=healthreceive
   const client = await db.getClient();
 
   try {
     await client.query('BEGIN');
-
-    const screenshot = fs.readFileSync(screenshotPath);
+    let screenshot;
+    try{
+       screenshot = fs.readFileSync(screenshotPath || '') ;
+    }catch(error){
+      console.log(error);
+      screenshot='';
+    }
 
     const insertScreenshotQuery = `
       INSERT INTO Screenshots (blob_storage)
@@ -16,10 +22,10 @@ async function insertRecord(scanId, sequenceNumber, timestamp, startUri, endUri,
       RETURNING id
     `;
     const resScreenshot = await client.query(insertScreenshotQuery, [screenshot]);
-    const screenshotId = resScreenshot.rows[0].id;
+    const screenshot_id = resScreenshot.rows[0].id;
 
     const insertPerformanceQuery = `
-      INSERT INTO ChromePerformance (
+      INSERT INTO SYNTHETIC_FLOWS (
         scan_id, sequence_number, timestamp, start_uri, end_uri,
         trace_json, har_file, first_contentful_paint, largest_contentful_paint,
         cumulative_layout_shift, total_blocking_time, screenshot_id
@@ -27,8 +33,8 @@ async function insertRecord(scanId, sequenceNumber, timestamp, startUri, endUri,
     `;
 
     const values = [
-      scanId, sequenceNumber, timestamp, startUri, endUri,
-      traceJson, harFile, fcp, lcp, cls, tbt, screenshotId
+      scan_id, sequence_number, timestamp, start_uri, end_uri,
+      trace_json, har_file, first_contentful_paint, largest_contentful_paint, cumulative_layout_shift, total_blocking_time, screenshot_id
     ];
 
     await client.query(insertPerformanceQuery, values);

@@ -2,12 +2,15 @@
 const express = require("express");
 const cors = require("cors");
 const {retrieveRecords,retrieveRecordById} = require("../../services/synthetic-metrics/src/fns/retrieve");
+const insertRecord = require("../../services/synthetic-metrics/src/fns/insert");
 const app = express();
 const port = 3000;
 const fs = require('fs');
+const bodyParser=require('body-parser');
 
 // Enable CORS
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/health", async (req, res) => {
   const { from, to, flow_name} = req.query;
@@ -50,6 +53,18 @@ app.get("/health/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.post("/health", async (req,res)=>{
+  try{
+  const body= req.body;
+  const records= await insertRecord(body);
+  res.json({});
+  }catch(err){
+    console.error("Error retrieving records:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+)
 
 
 
