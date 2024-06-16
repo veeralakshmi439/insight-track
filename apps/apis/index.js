@@ -55,10 +55,11 @@ app.get("/health/:id", async (req, res) => {
 });
 
 app.post("/health", async (req,res)=>{
+  
   try{
   const body= req.body;
   const records= await insertRecord(body);
-  res.json({});
+  res.status(201).json({});
   }catch(err){
     console.error("Error retrieving records:", err);
     res.status(500).json({ error: "Internal server error" });
