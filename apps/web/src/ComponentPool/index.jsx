@@ -1,5 +1,5 @@
 // ComponentPool.jsx
-import React, { lazy, Suspense, useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect, ReactNode } from 'react';
 
 // Dynamically import all components from the components folder
 const componentPaths = import.meta.glob('./components/*.jsx');
@@ -14,7 +14,7 @@ const loadComponent = (name) => {
 };
 
 const ComponentPool = ({ type, ...props }) => {
-    const [Component, setComponent] = useState(null);
+    const [Component, setComponent] = useState<ReactNode|undefined|null>(null);
 
     useEffect(() => {
         const load = async () => {

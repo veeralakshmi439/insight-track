@@ -7,15 +7,18 @@ import { useHTTP } from "../../uitls/useHTTP";
 
 const HeatmapChart = ({ from, to }) => {
   const ref = useRef(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let resizer;
 
   const dispatchDrawerState = useContext(NavigationDispatcherContext);
 
-  const { data, error } = useHTTP(`/health?from=${from}`);
+  const { data: unfilterndData, error } = useHTTP(`/health?from=${from}`);
 
   useEffect(() => {
-    if (ref.current && data) {
+    if (ref.current && unfilterndData) {
+      const data = unfilterndData?.filter?.((item: any) => {
+        return item.flow_name !== null;
+      }) || [];
+      
       const chartDom = ref.current;
       const chartInstance = echarts.init(chartDom);
 
@@ -120,7 +123,7 @@ const HeatmapChart = ({ from, to }) => {
       chartInstance.setOption(option);
 
       chartInstance.on("click", "series", () => {
-        dispatchDrawerState({
+        dispatchDrawerState?.({
           type: "navigation",
           payload: {
             data: {
@@ -131,7 +134,6 @@ const HeatmapChart = ({ from, to }) => {
         });
       });
 
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       resizer = () => {
         chartInstance.resize();
       };
@@ -141,10 +143,10 @@ const HeatmapChart = ({ from, to }) => {
     return () => {
       window.removeEventListener("resize", resizer);
     };
-  }, [data]);
+  }, [unfilterndData]);
 
   if (error) return <div>Error loading data</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!unfilterndData) return <div>Loading...</div>;
 
   return (
     <Box>

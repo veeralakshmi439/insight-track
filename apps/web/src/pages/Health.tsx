@@ -1,8 +1,7 @@
+// @ts-ignore
 import { Box, Flex, GridItem, Grid } from "@chakra-ui/react";
 import HeatMap from "../charts/HeatMap";
 import { useReducer, useState } from "react";
-import { NavTop } from "../LayoutComponents/NavTop";
-import { NavLeft } from "../LayoutComponents/NavLeft";
 import CustmerEffectedDueToTechnicalErrors from "../charts/CustmerEffectedDueToTechnicalErrors";
 import {
   NavigationDispatcherContext,
@@ -15,7 +14,7 @@ import dayjs from 'dayjs';
 function Health() {
   const [drawerState, dispatch] = useReducer(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (state, action: any) => {
+    (state: any, action: any) => {
       return action.payload;
     },
     {
@@ -30,7 +29,7 @@ function Health() {
   const [timeRange, setTimeRange] = useState({ from: initialFrom, to: initialTo });
 
 
-  const handleTimeRangeChange = ({ from, to }) => {
+  const handleTimeRangeChange = ({ from, to }: { from: string, to: string}) => {
     setTimeRange({ from, to });
   };
 
@@ -60,7 +59,7 @@ function Health() {
               </Grid>
             </Box>
           </Flex>
-          <DrawerRight/>
+          <DrawerRight scanId={""}/>
         </Box>
       </NavigationDispatcherContext.Provider>
     </NavigationStateContext.Provider>

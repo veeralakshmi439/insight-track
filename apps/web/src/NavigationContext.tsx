@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import { Dispatch, createContext } from "react";
 
 export const NavigationStateContext = createContext({});
 
-export const NavigationDispatcherContext = createContext(null);
+export const NavigationDispatcherContext = createContext<null | Dispatch<any>>(null);

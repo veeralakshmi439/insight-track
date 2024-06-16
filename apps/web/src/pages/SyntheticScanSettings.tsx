@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
-import { ChakraProvider, Box, Flex, FormControl, FormLabel, Input, Select, Button, VStack, Textarea } from '@chakra-ui/react';
+import { useState } from "react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Button,
+  VStack,
+  Textarea,
+} from "@chakra-ui/react";
 
 const SyntheticHealthCheckForm = () => {
   const [formData, setFormData] = useState({
-    url: '',
-    frequency: '5m',
-    method: 'GET',
-    headers: '',
-    expectedStatus: '',
-    body: '',
+    url: "",
+    frequency: "5m",
+    method: "GET",
+    headers: "",
+    expectedStatus: "",
+    body: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('Health Check Configuration:', formData);
+    console.log("Health Check Configuration:", formData);
     // You can add your form submission logic here
   };
 
@@ -39,7 +48,11 @@ const SyntheticHealthCheckForm = () => {
 
           <FormControl id="frequency" isRequired>
             <FormLabel>Frequency</FormLabel>
-            <Select name="frequency" value={formData.frequency} onChange={handleInputChange}>
+            <Select
+              name="frequency"
+              value={formData.frequency}
+              onChange={handleInputChange}
+            >
               <option value="1m">1 minute</option>
               <option value="5m">5 minutes</option>
               <option value="10m">10 minutes</option>
@@ -53,7 +66,11 @@ const SyntheticHealthCheckForm = () => {
 
           <FormControl id="method" isRequired>
             <FormLabel>Request Method</FormLabel>
-            <Select name="method" value={formData.method} onChange={handleInputChange}>
+            <Select
+              name="method"
+              value={formData.method}
+              onChange={handleInputChange}
+            >
               <option value="GET">GET</option>
               <option value="POST">POST</option>
               <option value="PUT">PUT</option>
@@ -83,7 +100,7 @@ const SyntheticHealthCheckForm = () => {
             />
           </FormControl>
 
-          {formData.method === 'POST' || formData.method === 'PUT' ? (
+          {formData.method === "POST" || formData.method === "PUT" ? (
             <FormControl id="body">
               <FormLabel>Request Body</FormLabel>
               <Textarea
