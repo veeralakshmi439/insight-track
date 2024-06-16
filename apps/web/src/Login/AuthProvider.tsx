@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
     <Auth0Provider
       domain={authConfig.domain}
       clientId={authConfig.clientId}
-      redirectUri={authConfig.redirectUri}
       onRedirectCallback={onRedirectCallback}
     >
       {children}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, Checkbox, Container, Flex, Heading, Input, Link, Stack, Text, VStack } from '@chakra-ui/react';
 import { FaGithub, FaGoogle, FaMicrosoft, FaApple } from 'react-icons/fa';
 import loginImage from './login.webp';
@@ -7,10 +6,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 const LoginPage = () => {
   const { loginWithRedirect } = useAuth0();
 
-  const handleLogin = (connection) => {
+  const handleLogin = (connection: string) => {
     loginWithRedirect({
       connection
-    });
+    } as any);
   };
 
   return (
