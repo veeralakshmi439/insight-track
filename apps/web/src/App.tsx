@@ -8,18 +8,21 @@ import Delivery from "./pages/Delivery";
 import Login from "./Login";
 import Layout from "./LayoutComponents/Layout";
 import ProtectedRoute from "./Login/ProtectedRoute";
+import AuthProvider from "./Login/AuthProvider";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<AuthProvider><Login /></AuthProvider>} />
         <Route
           path="/"
           element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
+            <AuthProvider>
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            </AuthProvider>
           }
         >
           <Route path="/home" element={<Home />} />
