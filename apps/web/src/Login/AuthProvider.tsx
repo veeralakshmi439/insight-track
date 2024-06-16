@@ -13,7 +13,9 @@ const AuthProvider = ({ children }) => {
       domain={authConfig.domain}
       clientId={authConfig.clientId}
       onRedirectCallback={onRedirectCallback}
-    >
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}    >
       {children}
     </Auth0Provider>
   );
