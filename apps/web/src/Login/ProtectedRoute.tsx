@@ -1,15 +1,15 @@
 import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate } from 'react-router-dom';
-import { useIsAuthenticated } from "@azure/msal-react";
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = useIsAuthenticated();
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  return children;
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
