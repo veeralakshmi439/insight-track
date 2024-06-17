@@ -16,7 +16,7 @@ import generateRandomTasks from './data'; // Assuming you have the data generati
 
 const App = () => {
   const [data, setData] = useState(generateRandomTasks(100)); // Generate 100 random tasks
-  const [sortConfig, setSortConfig] = useState(null);
+  const [sortConfig, setSortConfig] = useState<any>(null);
 
   const onSort = (column) => {
     let direction = 'ascending';
@@ -41,7 +41,7 @@ const App = () => {
     if (!sortConfig || sortConfig.key !== column) {
       return null;
     }
-    return sortConfig.direction === 'ascending' ? '↑' : '↓';
+    return sortConfig?.direction === 'ascending' ? '↑' : '↓';
   };
 
   return (

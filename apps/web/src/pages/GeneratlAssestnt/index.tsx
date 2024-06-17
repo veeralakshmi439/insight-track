@@ -7,7 +7,6 @@ const ChatPage = () => {
 
   const handleSend = () => {
     if (input.trim()) {
-      setMessages([...messages, { text: input, from: "user" }]);
       setInput("");
     }
   };
@@ -16,7 +15,7 @@ const ChatPage = () => {
     <Box display="flex" flexDirection="column" height="calc(100vh - 50px)" bg="gray.50">
       <Box flex="1" overflowY="auto" p={4}>
         <VStack spacing={4} align="stretch">
-          {messages.map((message, index) => (
+          {messages.map((message : any, index) => (
             <HStack
               key={index}
               alignSelf={message.from === "user" ? "flex-end" : "flex-start"}
