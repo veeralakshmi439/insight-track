@@ -20,6 +20,7 @@
     "@types/plotly.js-dist-min": "^2.3.4",
     "dayjs": "^1.11.11",
     "echarts": "^5.5.0",
+    "faker": "^6.6.6",
     "framer-motion": "^11.2.4",
     "plotly.js": "^2.32.0",
     "plotly.js-dist": "^2.32.0",

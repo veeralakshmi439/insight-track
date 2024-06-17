@@ -1,0 +1,19 @@
+{
+  "flowTimes": [
+    { "flowTime": 5, "count": 2 },
+    { "flowTime": 10, "count": 5 },
+    { "flowTime": 15, "count": 3 },
+    { "flowTime": 20, "count": 10 },
+    { "flowTime": 25, "count": 22 },
+    { "flowTime": 30, "count": 18 },
+    { "flowTime": 40, "count": 11 },
+    { "flowTime": 45, "count": 5 },
+    { "flowTime": 50, "count": 5 },
+    { "flowTime": 65, "count": 3 },
+    { "flowTime": 70, "count": 5 },
+    { "flowTime": 75, "count": 3 },
+    { "flowTime": 95, "count": 1 },
+    { "flowTime": 100, "count": 1 },
+    { "flowTime": 110, "count": 1 }
+  ]
+}
