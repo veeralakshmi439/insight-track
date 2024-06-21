@@ -7,9 +7,12 @@ const app = express();
 const port = 3000;
 const fs = require('fs');
 const bodyParser=require('body-parser');
+const dynamicRandom = require('../../services/synthetic-metrics/src/data-generator/dynamic-random');
 
-// Enable CORS
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173','https://www.google.com']
+}));
+
 app.use(bodyParser.json());
 
 app.get("/health", async (req, res) => {
@@ -24,7 +27,7 @@ app.get("/health", async (req, res) => {
   try {
     const fromTimestamp = new Date(from);
     const toTimestamp = new Date(to || new Date().toISOString());
-    const records = await retrieveRecords(fromTimestamp, toTimestamp,flow_name);
+    const records = await dynamicRandom(fromTimestamp,toTimestamp);
 
     const data = records.map((row, index) => ({
       ...row,
@@ -66,8 +69,6 @@ app.post("/health", async (req,res)=>{
   }
 }
 )
-
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

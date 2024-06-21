@@ -6,5 +6,7 @@ export const fetcher = (url: string | URL | Request) => {
 
 export const useHTTP = (...args: any) => {
   const [url] = args;
-  return useSWR(`http://localhost:3000${url}`, fetcher);
+  return useSWR(`http://localhost:3000${url}`, fetcher, {
+    suspense: true,
+  });
 };

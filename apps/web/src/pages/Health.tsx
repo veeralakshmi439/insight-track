@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Box, Flex, GridItem, Grid } from "@chakra-ui/react";
 import HeatMap from "../charts/HeatMap";
-import { useReducer, useState } from "react";
+import { Suspense, useReducer, useState } from "react";
 import CustmerEffectedDueToTechnicalErrors from "../charts/CustmerEffectedDueToTechnicalErrors";
 import {
   NavigationDispatcherContext,
@@ -9,7 +9,8 @@ import {
 } from "../NavigationContext";
 import { DrawerRight } from "../LayoutComponents/DrawerRight";
 import TimeRangePicker from "../LayoutComponents/Toolbar";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
+import SuspenseWithAutoSizeFallback from "../UtilComponents/AutoSizeSuspenceFallBack";
 
 function Health() {
   const [drawerState, dispatch] = useReducer(
@@ -23,13 +24,21 @@ function Health() {
   );
 
   const now = dayjs();
-  const initialFrom = now.subtract(1, 'hour').toISOString();
+  const initialFrom = now.subtract(1, "hour").toISOString();
   const initialTo = now.toISOString();
 
-  const [timeRange, setTimeRange] = useState({ from: initialFrom, to: initialTo });
+  const [timeRange, setTimeRange] = useState({
+    from: initialFrom,
+    to: initialTo,
+  });
 
-
-  const handleTimeRangeChange = ({ from, to }: { from: string, to: string}) => {
+  const handleTimeRangeChange = ({
+    from,
+    to,
+  }: {
+    from: string;
+    to: string;
+  }) => {
     setTimeRange({ from, to });
   };
 
@@ -47,11 +56,13 @@ function Health() {
               }}
             >
               <Grid gridGap={["0.8rem"]} rowGap={["0.8rem"]} p={["0.8rem"]}>
-                <GridItem colStart={[1]} colEnd={11} bg={"white"}>
-                  <TimeRangePicker onTimeRangeChange={handleTimeRangeChange}/>
+                <GridItem colStart={[1]} colEnd={11} >
+                  <TimeRangePicker onTimeRangeChange={handleTimeRangeChange} />
                 </GridItem>
                 <GridItem colStart={[1]} colEnd={11} bg={"white"}>
-                  <HeatMap from={timeRange.from} to={timeRange.to} />
+                  <SuspenseWithAutoSizeFallback>
+                    <HeatMap from={timeRange.from} to={timeRange.to} />
+                  </SuspenseWithAutoSizeFallback>
                 </GridItem>
                 <GridItem colStart={[1]} colEnd={11} bg={"white"}>
                   <CustmerEffectedDueToTechnicalErrors />
@@ -59,7 +70,7 @@ function Health() {
               </Grid>
             </Box>
           </Flex>
-          <DrawerRight scanId={""}/>
+          <DrawerRight scanId={""} />
         </Box>
       </NavigationDispatcherContext.Provider>
     </NavigationStateContext.Provider>

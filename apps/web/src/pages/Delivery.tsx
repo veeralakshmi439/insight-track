@@ -8,11 +8,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import DeleveryFlowLoad from "../charts/DeleveryFlowLoad";
-import DeleveryFlowTime from "../charts/DeleveryFlowTIme";
-import DeleveryFlowVelocity from "../charts/DeleveryFlowVelocity";
-import FlowDistributionChart from "../charts/DeleveryFlowDistrubution";
-import DeleveryUserStoriesTable from "../charts/DeleveryUserStoriesTable";
+import DynamicComponent from "../DynamicComponent";
 
 const AgileFlowMetrics = () => {
   return (
@@ -29,23 +25,23 @@ const AgileFlowMetrics = () => {
 
             <TabPanels>
               <TabPanel>
-                <FlowDistributionChart />
+                <DynamicComponent name={"DeleveryFlowDistrubution"} />
               </TabPanel>
               <TabPanel w={"100%"}>
-                <DeleveryFlowTime />
+                <DynamicComponent name={"DeleveryFlowTIme"} />
               </TabPanel>
               <TabPanel>
-                <DeleveryFlowVelocity />
+                <DynamicComponent name={"DeleveryFlowVelocity"} />
               </TabPanel>
               <TabPanel w={"100%"}>
-                <DeleveryFlowLoad />
+                <DynamicComponent name={"DeleveryFlowLoad"} />
               </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
       </GridItem>
       <GridItem>
-        <DeleveryUserStoriesTable />
+        <DynamicComponent name={"DeleveryUserStoriesTable"} />
       </GridItem>
     </Grid>
   );

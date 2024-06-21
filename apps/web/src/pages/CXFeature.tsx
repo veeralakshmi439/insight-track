@@ -18,6 +18,7 @@ import {
 import CXFeatureFlow from "../charts/CXFeatureFlow";
 import CXCompleationRate from "../charts/CXCompleationRate";
 import CXTskTable from "../charts/CXTasksTable";
+import DynamicComponent from "../DynamicComponent";
 
 function Home() {
   return (
@@ -36,12 +37,12 @@ function Home() {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <Card >
-                    <CXCompleationRate />
+                  <Card>
+                    <DynamicComponent name={"CXCompleationRate"} />
                   </Card>
                 </TabPanel>
                 <TabPanel w={"100%"}>
-                  <CXFeatureFlow />
+                  <DynamicComponent name={"CXFeatureFlow"} />
                 </TabPanel>
               </TabPanels>
             </Tabs>
