@@ -21,11 +21,13 @@ async function retrieveRecords(fromTimestamp, toTimestamp, flow_name) {
 
     const values = [fromTimestamp, toTimestamp];
 
-    if(flow_name){
-      values.push(flow_name)
+    if (flow_name) {
+      values.push(flow_name);
     }
 
-    const query = flow_name ? queryWithFlowNameFilter : queryWithOutFlowNameFilter;
+    const query = flow_name
+      ? queryWithFlowNameFilter
+      : queryWithOutFlowNameFilter;
 
     const res = await client.query(query, values);
     return res.rows;
@@ -59,5 +61,4 @@ async function retrieveRecordById(id) {
   }
 }
 
-
-module.exports = {retrieveRecords,retrieveRecordById};
+module.exports = { retrieveRecords, retrieveRecordById };
