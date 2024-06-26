@@ -6,5 +6,6 @@ const resetRoutes = require('./rest-routs');
 module.exports = {
   retreveals,
   insertions,
-  generateRandomData
+  generateRandomData,
+  resetRoutes,
 };

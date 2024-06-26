@@ -1,11 +1,11 @@
 const { app } = require("@azure/functions");
-const { generateRandomData,router } = require("@repo/synthetic-metrics");
+const { generateRandomData,resetRoutes } = require("@repo/synthetic-metrics");
 
 const express = require('express');
 
 const expressApp = express();
 
-expressApp.use(router);
+expressApp.use(resetRoutes);
 
 
 async function status(request, context) {
