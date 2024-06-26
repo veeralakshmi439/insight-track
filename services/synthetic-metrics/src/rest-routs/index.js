@@ -1,8 +1,8 @@
 const {
   retrieveRecordById,
-} = require("../../services/synthetic-metrics/src/fns/retrieve");
-const insertRecord = require("../../services/synthetic-metrics/src/fns/insert");
-const dynamicRandom = require("../../services/synthetic-metrics/src/data-generator/dynamic-random");
+} = require("../fns/retrieve");
+const insertRecord = require("../fns/insert");
+const dynamicRandom = require("../data-generator/dynamic-random");
 
 const router = require("express").Router();
 
@@ -57,4 +57,4 @@ router.post("/health", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

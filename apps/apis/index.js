@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 const bodyParser=require('body-parser');
-const router = rquire('../../services/synthetic-metrics/src/rest-routs');
+const router = require('../../services/synthetic-metrics/src/rest-routs');
 
 app.use(
   cors({
