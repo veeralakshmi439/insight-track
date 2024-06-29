@@ -5,7 +5,7 @@ import ResizeObserver from "resize-observer-polyfill";
 export const DefaultFallback = (props: BoxProps) => {
   return (
     <Box bg={"white"} {...props}>
-      <Center>Loading....</Center>
+      <Center height={"100%"}>Loading....</Center>
     </Box>
   );
 };
@@ -13,12 +13,16 @@ export const DefaultFallback = (props: BoxProps) => {
 const SuspenseWithAutoSizeFallback = ({
   fallback,
   children,
+  initialWidth,
+  initialHeight
 }: {
   fallback?: any,
-  children?: any
+  children?: any,
+  initialWidth?: string,
+  initialHeight?: string
 }) => {
   const containerRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState({ width: initialWidth, height: initialHeight });
   const Fallback = fallback || DefaultFallback;
 
   useEffect(() => {

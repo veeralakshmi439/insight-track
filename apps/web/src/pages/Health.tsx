@@ -63,7 +63,7 @@ function Health() {
                   <TimeRangePicker onTimeRangeChange={handleTimeRangeChange} />
                 </GridItem>
                 <GridItem colStart={[1]} colEnd={11} bg={"white"}>
-                  <SuspenseWithAutoSizeFallback>
+                  <SuspenseWithAutoSizeFallback initialHeight="200px">
                     <HeatMap from={timeRange.from} to={timeRange.to} />
                   </SuspenseWithAutoSizeFallback>
                 </GridItem>
