@@ -17,15 +17,26 @@ jobs:
 
       - id: filter
         run: |
+          echo "Listing services directory:"
+          ls services || { echo "Failed to list services directory"; exit 1; }
           services=$(ls services)
+          echo "Services found: $services"
           changed_services=()
           for service in $services; do
+            echo "Checking service: $service"
             if git diff --quiet HEAD^ HEAD -- services/$service; then
-              continue
+              echo "No changes detected in $service"
+            else
+              echo "Changes detected in $service"
+              changed_services+=($service)
             fi
-            changed_services+=($service)
           done
-          echo "::set-output name=services::$(echo ${changed_services[@]} | jq -R -s -c 'split(" ")')"
+          if [ ${#changed_services[@]} -eq 0 ]; then
+            echo "No changes detected in any service."
+          else
+            echo "Changed services: ${changed_services[@]}"
+            echo "::set-output name=services::$(echo ${changed_services[@]} | jq -R -s -c 'split(" ")')"
+          fi
         shell: bash
 
   publish:
@@ -43,16 +54,22 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org/'
-      - name: pwd
-        run: pwd
-        working-directory: services/${{ matrix.service }}
+
+      - name: Debug working directory
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Listing current directory:"
+          ls -la
+          echo "Listing services/${{ matrix.service }} directory:"
+          ls -la ./services/${{ matrix.service }} || { echo "Failed to list services/${{ matrix.service }} directory"; exit 1; }
 
       - name: Install dependencies
         run: npm install
-        working-directory: services/${{ matrix.service }}
+        working-directory: ./services/${{ matrix.service }}
 
       - name: Publish to npm
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: services/${{ matrix.service }}
+        working-directory: ./services/${{ matrix.service }}
