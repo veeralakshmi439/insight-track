@@ -1,8 +1,8 @@
 import useSWR from "swr";
 const API_ROOT =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : process.env.API_ROOT;
+  import.meta.env.MODE === "development"
+    ? "http://localhost:3000/api"
+    : "https://insight-track-rest-apis.azurewebsites.net/api";
 
 export const fetcher = (url: string | URL | Request) => {
   return fetch(url).then((res) => res.json());
@@ -10,7 +10,7 @@ export const fetcher = (url: string | URL | Request) => {
 
 export const useHTTP = (...args: any) => {
   const [url] = args;
-  return useSWR(`${API_ROOT}`, fetcher, {
+  return useSWR(`${API_ROOT}${url}`, fetcher, {
     suspense: true,
   });
 };
