@@ -55,15 +55,6 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org/'
 
-      - name: Debug working directory
-        run: |
-          echo "Current working directory:"
-          pwd
-          echo "Listing current directory:"
-          ls -la
-          echo "Listing services/${{ matrix.service }} directory:"
-          ls -la ./services/${{ matrix.service }} || { echo "Failed to list services/${{ matrix.service }} directory"; exit 1; }
-
       - name: Install dependencies
         run: npm install
         working-directory: ./services/${{ matrix.service }}
