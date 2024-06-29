@@ -58,9 +58,3 @@ jobs:
       - name: Install dependencies
         run: npm install
         working-directory: ./services/synthetic-metrics
-
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./services/${{ matrix.service }}
