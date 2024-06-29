@@ -45,7 +45,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
       - name: pwd
         run: pwd
-        working-directory: services/synthetic-metrics
+        working-directory: services/${{ matrix.service }}
 
       - name: Install dependencies
         run: npm install
