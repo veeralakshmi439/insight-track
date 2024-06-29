@@ -1,5 +1,6 @@
 import React, { useState, lazy, Suspense } from "react";
 import { Box, Button, Input, VStack, HStack, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 const components = ["CXTasksTable", 'DeleveryFlowTIme','DeleveryFlowDistrubution','CXCompleationRate'];
 
@@ -23,6 +24,9 @@ const ChatPage = () => {
       setInput("");
     }
   };
+  useEffect(()=>{
+    document.title='General Assestent | Insight Track';
+  },[]);
 
   return (
     <Box display="flex" flexDirection="column" height="calc(100vh - 50px)" bg="gray.50">
