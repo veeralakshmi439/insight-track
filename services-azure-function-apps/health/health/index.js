@@ -8,12 +8,19 @@ const expressApp = express();
 expressApp.use(resetRoutes);
 
 
-async function status(request, context) {
-  context.log(`Http function processed request for url "${request.url}"`);
+async function status(req, context) {
+  context.log('Hello');
+  context.log(JSON.stringify(req));
+  context.log(JSON.stringify(context));
+
+  const { from, to, flow_name } = req.params;
+
+  const fromTimestamp = new Date(new Date().getTime() - (24 * 60 * 60 * 1000)).toISOString();
+  const toTimestamp = new Date(to || new Date().toISOString());
 
   return {
     status: 200,
-    jsonBody: generateRandomData('2022-09-27T18:00:00.000','2022-09-27T18:00:00.000')
+    jsonBody: generateRandomData(fromTimestamp,toTimestamp)
   };
 }
 

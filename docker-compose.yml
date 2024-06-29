@@ -1,28 +1,33 @@
-version: "3.8"
+version: '3.7'
+
 services:
-  db:
-    image: postgres
-    container_name: local_pgdb
-    restart: always
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: user-name
-      POSTGRES_PASSWORD: strong-password
+      - "9042:9042"
     volumes:
-      - local_pgdata:/var/lib/postgresql/data
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4_container
-    restart: always
+      - cassandra_data:/var/lib/cassandra
+    networks:
+      - cassandra_network
+
+  cassandra-reaper:
+    image: thelastpickle/cassandra-reaper:latest
+    container_name: cassandra-reaper
     ports:
-      - "8888:80"
+      - "8080:8080"
     environment:
-      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
-      PGADMIN_DEFAULT_PASSWORD: strong-password
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
+      - REAPER_STORAGE_TYPE=cassandra
+      - REAPER_DATACENTER=dc1
+      - REAPER_CONTACT_POINTS=cassandra
+    depends_on:
+      - cassandra
+    networks:
+      - cassandra_network
 
 volumes:
-  local_pgdata:
-  pgadmin-data:
+  cassandra_data:
+
+networks:
+  cassandra_network:
+    driver: bridge

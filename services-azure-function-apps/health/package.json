@@ -9,9 +9,10 @@
     "dev": "rollup -c --watch"
   },
   "dependencies": {
+    "pg": "8.12.0",
     "@azure/functions": "4.5.0",
     "express": "^4.19.2",
-    "@repo/synthetic-metrics": "file:../../services/synthetic-metrics"
+    "@repo/synthetic-metrics": "file:../../services/health"
   },
   "devDependencies": {},
   "main": "health/*.js"
