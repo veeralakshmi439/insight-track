@@ -8,9 +8,13 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import DynamicComponent from "../DynamicComponent";
 
 const AgileFlowMetrics = () => {
+  useEffect(()=>{
+    document.title='Delivery | Insight Track';
+  },[]);
   return (
     <Grid gridGap={["0.8rem"]} rowGap={["0.8rem"]} p={["0.8rem"]}>
       <GridItem>

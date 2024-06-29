@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Box, Flex, GridItem, Grid } from "@chakra-ui/react";
 import HeatMap from "../charts/HeatMap";
-import { Suspense, useReducer, useState } from "react";
+import { Suspense, useReducer, useState,useEffect } from "react";
 import CustmerEffectedDueToTechnicalErrors from "../charts/CustmerEffectedDueToTechnicalErrors";
 import {
   NavigationDispatcherContext,
@@ -41,6 +41,9 @@ function Health() {
   }) => {
     setTimeRange({ from, to });
   };
+  useEffect(()=>{
+    document.title='Health | Insight Track';
+  },[]);
 
   return (
     <NavigationStateContext.Provider value={drawerState}>
