@@ -1,5 +1,5 @@
 {
-    "azureFunctions.deploySubpath": "services-azure-function-apps/health",
+    "azureFunctions.deploySubpath": "",
     "azureFunctions.postDeployTask": "npm install (functions)",
     "azureFunctions.projectLanguage": "JavaScript",
     "azureFunctions.projectRuntime": "~4",

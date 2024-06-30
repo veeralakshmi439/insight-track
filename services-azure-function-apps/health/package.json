@@ -9,10 +9,13 @@
     "dev": "rollup -c --watch"
   },
   "dependencies": {
-    "pg": "8.12.0",
     "@azure/functions": "4.5.0",
+    "@insight-track/health": "latest",
+    "@repo/synthetic-metrics": "file:../../services/health",
+    "axios": "^1.7.2",
+    "cassandra-driver": "^4.7.2",
     "express": "^4.19.2",
-    "@repo/synthetic-metrics": "file:../../services/health"
+    "pg": "8.12.0"
   },
   "devDependencies": {},
   "main": "health/*.js"

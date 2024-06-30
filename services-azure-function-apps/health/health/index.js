@@ -1,5 +1,5 @@
 const { app } = require("@azure/functions");
-const { generateRandomData,resetRoutes } = require("@repo/synthetic-metrics");
+const { retreveals,resetRoutes } = require("@insight-track/health");
 
 const express = require('express');
 
@@ -20,7 +20,7 @@ async function status(req, context) {
 
   return {
     status: 200,
-    jsonBody: generateRandomData(fromTimestamp,toTimestamp)
+    jsonBody: await retreveals.retrieveRecords(fromTimestamp,toTimestamp)
   };
 }
 

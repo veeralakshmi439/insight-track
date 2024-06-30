@@ -2,7 +2,7 @@ import useSWR from "swr";
 const API_ROOT =
   import.meta.env.MODE === "development"
     ? "http://localhost:3000/api"
-    : "https://insight-track-rest-apis.azurewebsites.net/api";
+    : "https://insight-track-service-api.azurewebsites.net/api";
 
 export const fetcher = (url: string | URL | Request) => {
   return fetch(url).then((res) => res.json());

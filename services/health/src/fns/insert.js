@@ -1,5 +1,6 @@
-// insertRecord.js
 const fs = require("fs");
+const cassandra = require("cassandra-driver");
+const { v4: uuidv4 } = require('uuid');
 const db = require("../db");
 
 async function insertRecord(healthreceive) {
@@ -19,37 +20,33 @@ async function insertRecord(healthreceive) {
     total_blocking_time,
     screenshotPath,
   } = healthreceive;
+
   const client = await db.getClient();
 
   try {
-    await client.query("BEGIN");
     let screenshot;
     try {
       screenshot = fs.readFileSync(screenshotPath || "");
     } catch (error) {
       console.log(error);
-      screenshot = "";
+      screenshot = null;
     }
 
-    const insertScreenshotQuery = `
-      INSERT INTO Screenshots (blob_storage)
-      VALUES ($1)
-      RETURNING id
-    `;
-    const resScreenshot = await client.query(insertScreenshotQuery, [
-      screenshot,
-    ]);
-    const screenshot_id = resScreenshot.rows[0].id;
+    const screenshot_id = uuidv4();
 
+  
+    // Insert performance data into SYNTHETIC_FLOWS table
     const insertPerformanceQuery = `
-      INSERT INTO SYNTHETIC_FLOWS (
-        flow_name,status,scan_id, sequence_number, timestamp, start_uri, end_uri,
+      INSERT INTO flow_health (
+        id, flow_name, status, scan_id, sequence_number, timestamp, start_uri, end_uri,
         trace_json, har_file, first_contentful_paint, largest_contentful_paint,
         cumulative_layout_shift, total_blocking_time, screenshot_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,$13,$14)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
+    const performanceId = uuidv4();
     const values = [
+      performanceId,
       flow_name,
       status,
       scan_id,
@@ -66,14 +63,14 @@ async function insertRecord(healthreceive) {
       screenshot_id,
     ];
 
-    await client.query(insertPerformanceQuery, values);
+    await client.execute(insertPerformanceQuery, values, { prepare: true });
 
-    await client.query("COMMIT");
+    console.log('Data inserted successfully');
   } catch (e) {
-    await client.query("ROLLBACK");
+    console.error('Error inserting data:', e);
     throw e;
   } finally {
-    client.release();
+    await client.shutdown();
   }
 }
 
