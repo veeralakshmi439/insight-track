@@ -62,9 +62,9 @@ const HeatmapChart = ({ from, to }) => {
           position: "top",
         },
         grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
+          left: "10%",
+          right: "`0%",
+          bottom: "10%",
           containLabel: false,
         },
         xAxis: {
@@ -96,9 +96,9 @@ const HeatmapChart = ({ from, to }) => {
             color: ["red", "orange", "green"], //From smaller to bigger value ->
           },
           pieces: [
-            {  label: "Up", color: "green" }, // Green for 'up'
-            { label: "Partially Up", color: "orange" }, // Orange for 'partially up'
-            { label: "Down", color: "red" }, // Red for 'down'
+            {  value: 1, label: "Up", color: "green" }, // Green for 'up'
+            { value: 0.5, label: "Partially Up", color: "orange" }, // Orange for 'partially up'
+            { value: 0, label: "Down", color: "red" }, // Red for 'down'
           ],
         },
         series: [
