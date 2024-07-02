@@ -17,9 +17,9 @@
   integrity sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==
 
 "@insight-track/health@latest":
-  version "1.0.20"
-  resolved "https://registry.npmjs.org/@insight-track/health/-/health-1.0.20.tgz"
-  integrity sha512-igovJI0o972uplaeAi+wmbO1cxI3uw6p91qShuGdjEl6fa2tTXCJQrRZ8KsnjEqLqo8J8ya/QccaGwrilapb+A==
+  version "1.0.24"
+  resolved "https://registry.npmjs.org/@insight-track/health/-/health-1.0.24.tgz"
+  integrity sha512-Ug45JzqOt+dr6OQZ4tBis4VSFAaQ5y/aQlYcRCziHk5Y5K5tGDsmZSVEdcSYPl9EBSm08OofZXQ2jD8GwMBxbg==
   dependencies:
     axios "^1.7.2"
     cassandra-driver "^4.7.2"
@@ -27,7 +27,7 @@
     uuid "^10.0.0"
 
 "@repo/synthetic-metrics@file:../../services/health":
-  version "1.0.20"
+  version "1.0.24"
   resolved "file:../../services/health"
   dependencies:
     axios "^1.7.2"

@@ -1,10 +1,12 @@
 {
-    "azureFunctions.deploySubpath": "",
+    "azureFunctions.deploySubpath": "collectors/computer-vision",
     "azureFunctions.postDeployTask": "npm install (functions)",
-    "azureFunctions.projectLanguage": "JavaScript",
+    "azureFunctions.projectLanguage": "Python",
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.projectLanguageModel": 4,
-    "azureFunctions.projectSubpath": "services-azure-function-apps/health",
-    "azureFunctions.preDeployTask": "npm prune (functions)"
+    "azureFunctions.projectLanguageModel": 2,
+    "azureFunctions.projectSubpath": "collectors/computer-vision",
+    "azureFunctions.preDeployTask": "npm prune (functions)",
+    "azureFunctions.scmDoBuildDuringDeployment": true,
+    "azureFunctions.pythonVenv": ".venv"
 }

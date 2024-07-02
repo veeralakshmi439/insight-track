@@ -31,7 +31,12 @@ async function retrieveRecords(fromTimestamp, toTimestamp, flow_name) {
       : queryWithOutFlowNameFilter;
 
     const res = await client.execute(query, values, { prepare: true });
-    return res.rows;
+
+    return res.rows.map((row) => ({
+      ...row,
+      timestamp: roundTimestampToFiveMinutes(row.timestamp),
+    }));
+
   } catch (err) {
     console.error("Error retrieving records:", err);
     throw err;
@@ -60,6 +65,13 @@ async function retrieveRecordById(id) {
   } finally {
     await client.shutdown();
   }
+}
+
+function roundTimestampToFiveMinutes(timestamp) {
+  const date = new Date(timestamp);
+  const minutes = 10;
+  const ms = 1000 * 60 * minutes;
+  return new Date(Math.floor(date.getTime() / ms) * ms);
 }
 
 module.exports = { retrieveRecords, retrieveRecordById };

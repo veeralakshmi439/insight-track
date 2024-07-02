@@ -5,7 +5,7 @@ import { useEffect } from "react";
 const components = ["CXTasksTable", 'DeleveryFlowTIme','DeleveryFlowDistrubution','CXCompleationRate'];
 
 const ChatPage = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<any>([]);
   const [input, setInput] = useState("");
 
   const getRandomComponent = () => {
@@ -32,12 +32,12 @@ const ChatPage = () => {
     <Box display="flex" flexDirection="column" height="calc(100vh - 50px)" bg="gray.50">
       <Box flex="1" overflowY="auto" p={4}>
         <VStack spacing={4} align="stretch">
-          {messages.map((message, index) => (
+          {messages.map((message: any, index) => (
             <HStack
               key={index}
               alignSelf={message.from === "user" ? "flex-end" : "flex-start"}
             >
-              {message.Component ? (
+              {message?.Component ? (
                 <Suspense fallback={<div>Loading...</div>}>
                   <message.Component />
                 </Suspense>
@@ -49,7 +49,7 @@ const ChatPage = () => {
                   py={2}
                   borderRadius="md"
                 >
-                  {message.text}
+                  {message?.text}
                 </Text>
               )}
             </HStack>

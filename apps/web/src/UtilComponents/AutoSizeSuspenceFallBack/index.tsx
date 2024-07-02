@@ -21,7 +21,7 @@ const SuspenseWithAutoSizeFallback = ({
   initialWidth?: string,
   initialHeight?: string
 }) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<any>(null);
   const [dimensions, setDimensions] = useState({ width: initialWidth, height: initialHeight });
   const Fallback = fallback || DefaultFallback;
 
@@ -29,8 +29,8 @@ const SuspenseWithAutoSizeFallback = ({
     const updateSize = () => {
       if (containerRef.current) {
         setDimensions({
-          width: containerRef.current.offsetWidth,
-          height: containerRef.current.offsetHeight,
+          width: `${containerRef.current?.offsetWidth}px`,
+          height: `${containerRef.current?.offsetHeight}px`,
         });
       }
     };
