@@ -65,7 +65,7 @@ const HeatmapChart = ({ from, to }) => {
           left: "3%",
           right: "4%",
           bottom: "3%",
-          containLabel: true,
+          containLabel: false,
         },
         xAxis: {
           type: "category",
@@ -96,19 +96,19 @@ const HeatmapChart = ({ from, to }) => {
             color: ["red", "orange", "green"], //From smaller to bigger value ->
           },
           pieces: [
-            { value: 1, label: "Up", color: "green" }, // Green for 'up'
-            { value: 0.5, label: "Partially Up", color: "orange" }, // Orange for 'partially up'
-            { value: 0, label: "Down", color: "red" }, // Red for 'down'
+            {  label: "Up", color: "green" }, // Green for 'up'
+            { label: "Partially Up", color: "orange" }, // Orange for 'partially up'
+            { label: "Down", color: "red" }, // Red for 'down'
           ],
         },
         series: [
           {
-            name: "Punch Card",
+            name: "Health",
             type: "heatmap",
             data: processedData,
             visualMap: false,
             label: {
-              show: true,
+              show: false,
             },
             emphasis: {
               itemStyle: {
