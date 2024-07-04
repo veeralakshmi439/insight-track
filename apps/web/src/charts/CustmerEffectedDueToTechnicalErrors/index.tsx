@@ -18,7 +18,7 @@ export default () => {
       critical: Math.floor(Math.random() * 10), // Random critical errors
       uncritical: Math.floor(Math.random() * 20), // Random uncritical errors
     });
-    currentTime = new Date(currentTime.getTime() + 15 * 60 * 1000); // Increment by 15 minutes
+    currentTime = new Date(currentTime.getTime() + 10 * 60 * 1000); // Increment by 10 minutes
   }
   useEffect(() => {
     if (ref.current) {
@@ -94,5 +94,5 @@ export default () => {
     
   }, [data]);
 
-  return <Box ref={ref} style={{ height: "400px" }} p={"0.8rem"} />;
+  return <Box ref={ref} style={{ height: "250px" }} p={"0.8rem"} />;
 };

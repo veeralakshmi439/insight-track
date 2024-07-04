@@ -7,7 +7,6 @@ import {
   NavigationDispatcherContext,
   NavigationStateContext,
 } from "../NavigationContext";
-import { DrawerRight } from "../LayoutComponents/DrawerRight";
 import TimeRangePicker from "../LayoutComponents/Toolbar";
 import dayjs from "dayjs";
 import SuspenseWithAutoSizeFallback from "../UtilComponents/AutoSizeSuspenceFallBack";
@@ -24,7 +23,7 @@ function Health() {
   );
 
   const now = dayjs();
-  const initialFrom = now.subtract(1, "hour").toISOString();
+  const initialFrom = now.subtract(24, "hour").toISOString();
   const initialTo = now.toISOString();
 
   const [timeRange, setTimeRange] = useState({
@@ -73,7 +72,6 @@ function Health() {
               </Grid>
             </Box>
           </Flex>
-          <DrawerRight scanId={""} />
         </Box>
       </NavigationDispatcherContext.Provider>
     </NavigationStateContext.Provider>

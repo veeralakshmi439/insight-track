@@ -4,6 +4,7 @@ import {
   DrawerOverlay,
   DrawerFooter,
   DrawerCloseButton,
+  DrawerBody,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import {
@@ -27,7 +28,7 @@ import {
   Progress,
   Image,
 } from "@chakra-ui/react";
-import NetworkWaterfall from "../charts/network-har";
+import { useSearchParams } from "react-router-dom";
 
 const metrics = [
   {
@@ -59,61 +60,31 @@ const metrics = [
 const screenshotUrl =
   "https://lh7-us.googleusercontent.com/Gckzlm3-qfXUZ9zOI1hylS6bt3XqT6vcg5omAK1G5gZEs-yH4NjFtA1I7bfUo3LPs7wSmbZ3bYRedSuG-t93-qCOipGr_XP39e7yiABLcQAKfKojzzC3Qub7LElghW194AMUDFwQ4oRrqqjF5DgFInM"; // Replace with your actual screenshot URL
 
-export const DrawerRight = ({ scanId }: { scanId: string }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const drawerState: any = useContext(NavigationStateContext);
-  const drawerDispatch: any = useContext(NavigationDispatcherContext);
-
+export const DrawerRight = ({
+  scanId,
+  children,
+}: {
+  scanId: string;
+  children: any;
+}) => {
+  const [searcParams, setSearchParams] = useSearchParams();
   return (
     <Box>
       <Drawer
         size={"xl"}
-        isOpen={drawerState.isOpen}
+        isOpen={true}
         placement="right"
         onClose={() => {
-          drawerDispatch({
-            payload: {
-              isOpen: false,
-            },
-          });
+          setSearchParams({});
         }}
         onOverlayClick={() => {
-          drawerDispatch({
-            payload: {
-              isOpen: false,
-            },
-          });
+          setSearchParams({});
         }}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent w={"75%"} maxW={"75%"}>
           <DrawerCloseButton />
-
-          <Tabs isFitted variant="enclosed" isLazy>
-            <TabList mb="1em">
-              <Tab>Overview</Tab>
-              <Tab>Network Waterfall</Tab>
-              <Tab>Multiple Screenshots</Tab>
-              <Tab>Performance Trace</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <ScreenshotAndMetrics
-                  metrics={metrics}
-                  screenshotUrl={screenshotUrl}
-                />
-              </TabPanel>
-              <TabPanel>
-                <NetworkWaterfall scanId={scanId} />
-              </TabPanel>
-              <TabPanel>
-                <MultipleScreenshots screenshots={[]} />
-              </TabPanel>
-              <TabPanel>
-                <PerformanceTrace />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+          <DrawerBody>{children}</DrawerBody>
           <DrawerFooter></DrawerFooter>
         </DrawerContent>
       </Drawer>

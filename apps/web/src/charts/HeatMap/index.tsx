@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useContext, useEffect, useRef } from "react";
 import * as echarts from "echarts";
-import { Box } from "@chakra-ui/react";
+import { Box, border } from "@chakra-ui/react";
 import { NavigationDispatcherContext } from "../../NavigationContext";
 import { useHTTP } from "../../uitls/useHTTP";
+import { useSearchParams } from "react-router-dom";
 
 const HeatmapChart = ({ from, to }) => {
   const ref = useRef(null);
@@ -13,23 +14,26 @@ const HeatmapChart = ({ from, to }) => {
 
   const { data: unfilterndData, error } = useHTTP(`/health?from=${from}`);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const charInstance = useRef<any>(null);
+
   useEffect(() => {
-    if (ref.current && unfilterndData) {
-      const data = unfilterndData?.filter?.((item: any) => {
-        return item.flow_name !== null;
-      }) || [];
-      
+    if (ref.current && unfilterndData && charInstance.current! == null) {
+      const data =
+        unfilterndData?.filter?.((item: any) => {
+          return item.flow_name !== null;
+        }) || [];
+
       const chartDom = ref.current;
-      const chartInstance = echarts.init(chartDom);
+      charInstance.current = echarts.init(chartDom);
 
       // Extract unique timestamps and format as needed
       const uniqueTimestamps = [
         ...new Set(data.map((item) => new Date(item.timestamp).toISOString())),
       ];
 
-      const uniqueIds = [
-        ...new Set(data.map((item) => item.id)),
-      ];
+      const uniqueIds = [...new Set(data.map((item) => item.id))];
 
       const days = [...new Set(data.map((item) => item.flow_name))];
 
@@ -62,9 +66,9 @@ const HeatmapChart = ({ from, to }) => {
           position: "top",
         },
         grid: {
-          left: "10%",
-          right: "`0%",
-          bottom: "10%",
+          left: "104px",
+          right: "8px",
+          bottom: "50px",
           containLabel: false,
         },
         xAxis: {
@@ -82,6 +86,9 @@ const HeatmapChart = ({ from, to }) => {
         },
         yAxis: {
           type: "category",
+          axisLabel: {
+            interval: 0,
+          },
           data: days,
           splitArea: {
             show: true,
@@ -96,7 +103,7 @@ const HeatmapChart = ({ from, to }) => {
             color: ["red", "orange", "green"], //From smaller to bigger value ->
           },
           pieces: [
-            {  value: 1, label: "Up", color: "green" }, // Green for 'up'
+            { value: 1, label: "Up", color: "green" }, // Green for 'up'
             { value: 0.5, label: "Partially Up", color: "orange" }, // Orange for 'partially up'
             { value: 0, label: "Down", color: "red" }, // Red for 'down'
           ],
@@ -110,32 +117,28 @@ const HeatmapChart = ({ from, to }) => {
             label: {
               show: false,
             },
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
-              },
+            itemStyle: {
+              borderColor: "white",
+              outline: "1px",
+              borderType: "solid",
             },
           },
         ],
       };
 
-      chartInstance.setOption(option);
+      charInstance.current.setOption(option);
 
-      chartInstance.on("click", "series", () => {
-        dispatchDrawerState?.({
-          type: "navigation",
-          payload: {
-            data: {
-
-            },
-            isOpen: true,
-          },
+      charInstance.current.on("click", "series", (data: any) => {
+        //navigate
+        console.log(data);
+        setSearchParams({
+          component: "drawer-right",
+          flowName: `1`,
         });
       });
 
       resizer = () => {
-        chartInstance.resize();
+        charInstance.current.resize();
       };
 
       window.addEventListener("resize", resizer);
@@ -150,7 +153,7 @@ const HeatmapChart = ({ from, to }) => {
 
   return (
     <Box>
-      <Box ref={ref} style={{ height: "500px" }} p={"0.8rem"} />
+      <Box ref={ref} style={{ height: "250px" }} p={"0.8rem"} />
     </Box>
   );
 };

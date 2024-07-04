@@ -15,7 +15,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<AuthProvider><Login /></AuthProvider>} />
+        <Route
+          path="/login"
+          element={
+            <AuthProvider>
+              <Login />
+            </AuthProvider>
+          }
+        />
         <Route
           path="/"
           element={
@@ -26,10 +33,13 @@ function App() {
             </AuthProvider>
           }
         >
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home />}></Route>
           <Route path="/health" element={<Health />} />
           <Route path="/customer-experience" element={<CustomerExperience />} />
-          <Route path="/customer-experience/features/:id" element={<CXFeature />} />
+          <Route
+            path="/customer-experience/features/:id"
+            element={<CXFeature />}
+          />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/delivery" element={<Delivery />} />
           <Route path="/general-assestnet" element={<GeneralAssestnet />} />
