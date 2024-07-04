@@ -45,3 +45,4 @@ module.exports = async function (context, myTimer) {
     context.log.error("Error:", error.message);
   }
 };
+

@@ -16,7 +16,7 @@ async function pushMessageToQueue(message) {
 
   try {
     // Send the message
-    const enqueueResponse = await queueClient.sendMessage(message);
+    const enqueueResponse = await queueClient.sendMessage(Buffer.from(message).toString('base64'));
     console.log(
       `Message '${message}' has been pushed to the queue. Message ID: ${enqueueResponse.messageId}`
     );
