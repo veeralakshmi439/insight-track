@@ -2,11 +2,22 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"type": "func",
+			"label": "func: host start",
+			"command": "host start",
+			"problemMatcher": "$func-node-watch",
+			"isBackground": true,
+			"dependsOn": "npm install (functions)",
+			"options": {
+				"cwd": "${workspaceFolder}/collectors/synthetic-scans"
+			}
+		},
+		{
 			"type": "shell",
 			"label": "npm install (functions)",
 			"command": "npm install",
 			"options": {
-				"cwd": "${workspaceFolder}/services-azure-function-apps/health"
+				"cwd": "${workspaceFolder}/collectors/synthetic-scans"
 			}
 		},
 		{
@@ -15,35 +26,7 @@
 			"command": "npm prune --production",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/services-azure-function-apps/health"
-			}
-		},
-		{
-			"type": "func",
-			"label": "func: host start",
-			"command": "host start",
-			"problemMatcher": "$func-python-watch",
-			"isBackground": true,
-			"dependsOn": "pip install (functions)",
-			"options": {
-				"cwd": "${workspaceFolder}/collectors/computer-vision"
-			}
-		},
-		{
-			"label": "pip install (functions)",
-			"type": "shell",
-			"osx": {
-				"command": "${config:azureFunctions.pythonVenv}/bin/python -m pip install -r requirements.txt"
-			},
-			"windows": {
-				"command": "${config:azureFunctions.pythonVenv}/Scripts/python -m pip install -r requirements.txt"
-			},
-			"linux": {
-				"command": "${config:azureFunctions.pythonVenv}/bin/python -m pip install -r requirements.txt"
-			},
-			"problemMatcher": [],
-			"options": {
-				"cwd": "${workspaceFolder}/collectors/computer-vision"
+				"cwd": "${workspaceFolder}/collectors/synthetic-scans"
 			}
 		}
 	]

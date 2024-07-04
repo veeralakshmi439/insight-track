@@ -1,12 +1,12 @@
 {
-    "azureFunctions.deploySubpath": "collectors/computer-vision",
     "azureFunctions.postDeployTask": "npm install (functions)",
-    "azureFunctions.projectLanguage": "Python",
+    "azureFunctions.projectLanguage": "JavaScript",
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.projectLanguageModel": 2,
-    "azureFunctions.projectSubpath": "collectors/computer-vision",
+    "azureFunctions.projectLanguageModel": 4,
     "azureFunctions.preDeployTask": "npm prune (functions)",
     "azureFunctions.scmDoBuildDuringDeployment": true,
-    "azureFunctions.pythonVenv": ".venv"
+    "azureFunctions.pythonVenv": ".venv",
+    "azureFunctions.deploySubpath": "collectors/synthetic-scans",
+    "azureFunctions.projectSubpath": "collectors/synthetic-scans"
 }
