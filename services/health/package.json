@@ -1,6 +1,6 @@
 {
   "name": "@insight-track/health",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
