@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Get the staged commit message
+commit_msg=$(git log -1 --pretty=%B)
+
+# Define the conventional commit regex pattern
+pattern="^(feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert|wip|merge)(\(.+\))?: .+$"
+
+# Check if the commit message matches the pattern
+if [[ ! $commit_msg =~ $pattern ]]; then
+  echo "Invalid commit message format. Please use Conventional Commit format."
+  echo "Examples:"
+  echo "  feat: add new feature"
+  echo "  fix: fix a bug"
+  echo "  docs: update documentation"
+  echo "  style: format code"
+  echo "  refactor: refactor code"
+  echo "  perf: improve performance"
+  echo "  test: add or update tests"
+  echo "  chore: maintenance tasks"
+  echo "  build: update build scripts"
+  echo "  ci: update CI configuration"
+  echo "  revert: revert a commit"
+  echo "  wip: work in progress"
+  echo "  merge: merge branches"
+  exit 1
+fi
