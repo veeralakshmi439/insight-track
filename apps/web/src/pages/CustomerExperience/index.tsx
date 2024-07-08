@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import {useEffect } from "react";
-import AllFeatureHeathTable from '../charts/AllFeatureHealthTable';
-import AllFetureHealthCXInsights from '../charts/AllFeatureCXInsights';
+import AllFeatureHeathTable from '../../charts/AllFeatureHealthTable';
+import AllFetureHealthCXInsights from '../../charts/AllFeatureCXInsights';
 
 function Home() {
   useEffect(()=>{

@@ -54,7 +54,7 @@ export const Layout = () => {
               }}
             >
               <Outlet />
-              {component === "drawer-right" ? <DrawerRight scanId={'1'} ><DynamicPage name={'CXFeature'} /></DrawerRight> : null}
+              {component === "drawer-right" ? <DrawerRight scanId={'1'} ><DynamicPage name={'HealthWebScanInspect'} /></DrawerRight> : null}
             </Box>
           </Flex>
         </Box>

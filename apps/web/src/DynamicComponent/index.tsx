@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 const DynamicComponent = ({ name }) => {
   // Use React.lazy to dynamically import the component
-  const Component = lazy(() => import(`../charts/${name}`));
+  if(!name) return '';
+
+  const Component = lazy(() => import(`../charts/${name}/index.tsx`));
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

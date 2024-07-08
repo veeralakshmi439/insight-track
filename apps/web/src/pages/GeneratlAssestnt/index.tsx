@@ -10,7 +10,7 @@ const ChatPage = () => {
 
   const getRandomComponent = () => {
     const randomComponent = components[Math.floor(Math.random() * components.length)];
-    return lazy(() => import(`../../charts/${randomComponent}/index`));
+    return lazy(() => import(`../../charts/${randomComponent}/index.tsx`));
   };
 
   const handleSend = () => {

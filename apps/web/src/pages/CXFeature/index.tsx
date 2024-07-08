@@ -15,10 +15,10 @@ import {
   Button,
   Card,
 } from "@chakra-ui/react";
-import CXFeatureFlow from "../charts/CXFeatureFlow";
-import CXCompleationRate from "../charts/CXCompleationRate";
-import CXTskTable from "../charts/CXTasksTable";
-import DynamicComponent from "../DynamicComponent";
+import CXFeatureFlow from "../../charts/CXFeatureFlow";
+import CXCompleationRate from "../../charts/CXCompleationRate";
+import CXTskTable from "../../charts/CXTasksTable";
+import DynamicComponent from "../../DynamicComponent";
 
 function Home() {
   return (

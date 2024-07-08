@@ -9,7 +9,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import DynamicComponent from "../DynamicComponent";
+import DynamicComponent from "../../DynamicComponent";
 
 const AgileFlowMetrics = () => {
   useEffect(()=>{

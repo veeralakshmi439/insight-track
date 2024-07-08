@@ -1,15 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Health from "./pages/Health";
-import CustomerExperience from "./pages/CustomerExperience";
-import Analytics from "./pages/Analytics";
-import Delivery from "./pages/Delivery";
-import CXFeature from "./pages/CXFeature";
-import GeneralAssestnet from "./pages/GeneratlAssestnt";
 import Login from "./Login";
 import Layout from "./LayoutComponents/Layout";
 import ProtectedRoute from "./Login/ProtectedRoute";
 import AuthProvider from "./Login/AuthProvider";
+import DynamicPage from "./DynamicPage";
 
 function App() {
   return (
@@ -34,15 +29,15 @@ function App() {
           }
         >
           <Route path="/home" element={<Home />}></Route>
-          <Route path="/health" element={<Health />} />
-          <Route path="/customer-experience" element={<CustomerExperience />} />
+          <Route path="/health" element={<DynamicPage name={'Health'} />} />
+          <Route path="/customer-experience" element={<DynamicPage name={'CustomerExperience'} />} />
           <Route
             path="/customer-experience/features/:id"
-            element={<CXFeature />}
+            element={<DynamicPage name={'CXFeature'} />}
           />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/delivery" element={<Delivery />} />
-          <Route path="/general-assestnet" element={<GeneralAssestnet />} />
+          <Route path="/analytics" element={<DynamicPage name={'Analytics'} />} />
+          <Route path="/delivery" element={<DynamicPage name={'Delivery'} />} />
+          <Route path="/general-assestnet" element={<DynamicPage name={'GeneralAssestnet'} />} />
         </Route>
       </Routes>
     </Router>

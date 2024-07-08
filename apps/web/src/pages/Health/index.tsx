@@ -1,15 +1,15 @@
 // @ts-ignore
 import { Box, Flex, GridItem, Grid } from "@chakra-ui/react";
-import HeatMap from "../charts/HeatMap";
+import HeatMap from "../../charts/HeatMap";
 import { Suspense, useReducer, useState,useEffect } from "react";
-import CustmerEffectedDueToTechnicalErrors from "../charts/CustmerEffectedDueToTechnicalErrors";
+import CustmerEffectedDueToTechnicalErrors from "../../charts/CustmerEffectedDueToTechnicalErrors";
 import {
   NavigationDispatcherContext,
   NavigationStateContext,
-} from "../NavigationContext";
-import TimeRangePicker from "../LayoutComponents/Toolbar";
+} from "../../NavigationContext";
+import TimeRangePicker from "../../LayoutComponents/Toolbar";
 import dayjs from "dayjs";
-import SuspenseWithAutoSizeFallback from "../UtilComponents/AutoSizeSuspenceFallBack";
+import SuspenseWithAutoSizeFallback from "../../UtilComponents/AutoSizeSuspenceFallBack";
 
 function Health() {
   const [drawerState, dispatch] = useReducer(
