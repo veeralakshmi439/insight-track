@@ -4,25 +4,25 @@ This system is designed to automate the synthetic scanning of web pages. It util
 
 ## Architecture
 
-![System Architecture](./is.jpeg)
+![System Architecture](./is.jpg)
 
 ## Synthetic Scan Process
 
-1. **Triggering the Scan**: The scan can be triggered by various means such as an HTTP request, a timer, or an email. The trigger will start the Azure Function.
+1. **Triggering the Scan**: The scan can be triggered by various means of event in Service bus topic. 
 2. **Executing the Scan**: The Azure Function, utilizing a headless Chrome browser, will navigate to the specified web page and perform the scan.
 3. **Generating Artifacts**: During the scan, the function will generate various artifacts:
    - **HAR File**: Captures all network requests and responses.
    - **Screenshots**: Takes screenshots of the web page at different stages.
-   - **Performance Profile**: Collects performance metrics such as CPU and memory usage.
+   - **Performance Profile**: Performance profile json file.
    - **Memory Dump**: Provides a snapshot of the memory used by the browser.
-4. **Storing Results**: The results are stored in a designated storage account.
+4. **Storing Results**: The results are stored in a azure storae account blob containers.
 5. **Publishing to ServiceBus**: The scan results are sent to a ServiceBus Topic for further processing, notifications, or integration with other systems.
 
 ### Components
 
 1. **Scan Trigger**: An initial trigger (such as an email) that initiates the scan process.
 2. **Azure Function**: The core component that uses a Chrome browser instance to perform the scan.
-3. **HAR (HTTP Archive)**: Captures the network performance data of the scanned web page.
+3. **HAR (HTTP Archive)**: Captures the network waterfall and dependencies data of the scanned web page.
 4. **Screenshots**: Takes visual snapshots of the web page during the scan.
 5. **Performance Profile**: Records the performance metrics of the web page.
 6. **Memory Dump**: Captures the memory usage data of the web page.
