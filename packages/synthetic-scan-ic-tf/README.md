@@ -8,7 +8,7 @@ This system is designed to automate the synthetic scanning of web pages. It util
 
 ## Synthetic Scan Process
 
-1. **Triggering the Scan**: The scan can be triggered by various means of event in Service bus topic. 
+1. **Triggering the Scan**: The scan can be triggered messages in Service bus topic. 
 2. **Executing the Scan**: The Azure Function, utilizing a headless Chrome browser, will navigate to the specified web page and perform the scan.
 3. **Generating Artifacts**: During the scan, the function will generate various artifacts:
    - **HAR File**: Captures all network requests and responses.
