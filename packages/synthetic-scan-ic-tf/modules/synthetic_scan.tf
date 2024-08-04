@@ -12,25 +12,25 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_storage_container" "container1" {
-  name                  = "container1"
+  name                  = "screenshots"
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "container2" {
-  name                  = "container2"
+  name                  = "performace-profiles"
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "container3" {
-  name                  = "container3"
+  name                  = "har-container"
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "container4" {
-  name                  = "container4"
+  name                  = "memory-dump"
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
