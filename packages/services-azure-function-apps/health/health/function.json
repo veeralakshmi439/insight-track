@@ -1,0 +1,17 @@
+{
+  "bindings": [
+    {
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "route": "health",
+      "methods": [ "get" ],
+      "authLevel": "anonymous"
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}

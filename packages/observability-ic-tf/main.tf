@@ -19,15 +19,15 @@ variable "servicebus_namespace" {
 }
 
 variable "input_topic_name" {
-  default = "synthetic-scan-request"
+  default = "ob-ss-req-mb-tp"
 }
 
 variable "output_topic_name" {
-  default = "synthetic-scan-result"
+  default = "ob-ss-res-mb-tp"
 }
 
 variable "function_app_name" {
-  default = "synthetic-scan-web-fa"
+  default = "synthetic-scan-browser-fn"
 }
 
 variable "storage_account_name" {
@@ -45,6 +45,16 @@ resource "azurerm_servicebus_namespace" "sb_namespace" {
   location            = azurerm_resource_group.servicebus_rg.location
   resource_group_name = azurerm_resource_group.servicebus_rg.name
   sku                 = "Standard"
+}
+
+resource "azurerm_servicebus_topic" "input_topic" {
+  name         = var.input_topic_name
+  namespace_id = azurerm_servicebus_namespace.sb_namespace.id
+}
+
+resource "azurerm_servicebus_topic" "output_topic" {
+  name         = var.output_topic_name
+  namespace_id = azurerm_servicebus_namespace.sb_namespace.id
 }
 
 # Use the synthetic_scan module for the main resource group

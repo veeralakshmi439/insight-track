@@ -7,6 +7,6 @@
     "azureFunctions.preDeployTask": "npm prune (functions)",
     "azureFunctions.scmDoBuildDuringDeployment": true,
     "azureFunctions.pythonVenv": ".venv",
-    "azureFunctions.deploySubpath": "collectors/synthetic-scans",
-    "azureFunctions.projectSubpath": "collectors/synthetic-scans"
+    "azureFunctions.deploySubpath": "packages/synthetic-scan-browser-fn",
+    "azureFunctions.projectSubpath": "packages/synthetic-scan-browser-fn"
 }
