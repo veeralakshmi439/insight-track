@@ -4,6 +4,9 @@
 
 Welcome to InsightTrack, an advanced platform designed to monitor and enhance customer experiences. Unlike traditional monitoring tools, InsightTrack focuses on the customer's perspective, providing actionable insights for product owners, business stakeholders, designers, and technical teams. This tool is ideal for small teams and growing businesses looking to optimize their time and communication while improving customer satisfaction.
 
+<img width="3072" height="1548" alt="image" src="https://github.com/user-attachments/assets/2ebb052f-dc85-4859-8de6-6674c624c6ca" />
+
+
 ## Key Features
 
 - **Real-Time Customer Insights**: Gain instant visibility into how customers interact with your product, from their first visit to ongoing usage.
